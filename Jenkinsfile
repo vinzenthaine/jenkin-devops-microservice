@@ -17,6 +17,7 @@ pipeline {
 			}
 		}
 	} 
+	
 	post {
 		always {
 			echo 'Awesome! I run always'
