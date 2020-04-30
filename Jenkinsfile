@@ -16,5 +16,15 @@ pipeline {
 				echo "Integration test"
 			}
 		}
-	}
+	} post {
+		always {
+			echo 'Awesome! I run always'
+		}
+		success {
+			echo 'Success!'
+		}
+		failure {
+			echo 'failure!'
+		}
+}
 }
