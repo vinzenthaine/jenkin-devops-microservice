@@ -38,6 +38,32 @@ pipeline {
 				sh "mvn failsafe:integration-test failsafe:verify"
 			}
 		}
+		stage ('Package') {
+			steps {
+				sh "mvn package -DskipTests"
+			}
+		}
+
+		stage ('Build docker image') {
+			steps {
+				//sh "docker build -t in28min/currency-exchange-devops:${env.BUILD_TAG}"
+				script {
+					dockerImage = docker.build("yurabu/currency-exchange-devops:${env.BUILD_TAG}");
+				}
+			}
+		}
+
+		stage ('Push docker image') {
+			steps {
+				script {
+					docker.withRegistry('','dockerhubuser')
+					{
+						dockerImage.push();
+						dockerImage.push("latest");
+					}
+				}
+			}
+		}
 	} 
 
 	post {
