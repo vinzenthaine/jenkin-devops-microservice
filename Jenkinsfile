@@ -4,7 +4,7 @@ pipeline {
 	environment {
 		dockerHome = tool 'myDockerYura'
 		mavenHome = tool 'myMavenYura'
-		PATH = '$dockerHome/bin:$mavenHome/bin:$PATH'
+		PATH+EXTRA = '$dockerHome/bin:$mavenHome/bin'
 	}
 	stages {
 		stage ('Build') {
